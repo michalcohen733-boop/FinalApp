@@ -60,9 +60,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Fonts\MaterialIcons-Regular.ttf" />
+	  <None Remove="Fonts\MaterialSymbolsOutlined.ttf" />
+	  <None Remove="Fonts\OpenSans-Regular.ttf" />
+	  <None Remove="Fonts\OpenSans-Semibold.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiFont Include="Fonts\MaterialIcons-Regular.ttf" />
+	  <MauiFont Include="Fonts\MaterialSymbolsOutlined.ttf" />
+	  <MauiFont Include="Fonts\OpenSans-Regular.ttf" />
+	  <MauiFont Include="Fonts\OpenSans-Semibold.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="10.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.82" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.9" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -70,6 +85,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\SignInPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SignUpPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

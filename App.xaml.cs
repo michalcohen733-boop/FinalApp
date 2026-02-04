@@ -1,5 +1,5 @@
 ﻿using FinalApp.Models;
-
+using FinalApp.Views;
 namespace FinalApp
 {
     public partial class App : Application
@@ -29,7 +29,7 @@ namespace FinalApp
                 return new Window(new AppShell());
 
             }
-            return new Window(new AppShell());
+            return new Window(new NavigationPage(new SignInPage(new ViewModels.SignInPageViewModel())));
         }
     }
 }

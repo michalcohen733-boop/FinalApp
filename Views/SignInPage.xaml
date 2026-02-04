@@ -4,7 +4,7 @@
             x:Class="FinalApp.Views.SignInPage"
             xmlns:views="clr-namespace:FinalApp.ViewModels"
             x:DataType="views:SignInPageViewModel"
-            Title="SignIn"
+            NavigationPage.HasNavigationBar="False"
             FlowDirection="RightToLeft">
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -86,7 +86,13 @@
         TextColor="White"
         Command="{Binding SignInCommand}"
        />
-
+        <!-- remember me-->
+        <HorizontalStackLayout 
+         Spacing="10"
+         VerticalOptions="Center">
+            <CheckBox IsChecked="{Binding RememberMeChecked}" Color="White"/>
+            <Label Text="Remember me" TextColor="wheat" FontSize="16"/>
+        </HorizontalStackLayout>
         <!-- שגיאה -->
         <Label
         Text="{Binding loginMessage}"

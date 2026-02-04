@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+         xmlns:views="clr-namespace:FinalApp.ViewModels"
+        x:Class="FinalApp.Views.SignUpPage"
+        x:DataType="views:SignUpPageViewModel"
+         Title="SignUpPage">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Offset="0.0" Color="#004FF9" />
+            <GradientStop Offset="1.0" Color="#FFF94C" />
+        </LinearGradientBrush>
+
+    </ContentPage.Background>
+    <ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Wheat" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid
+RowDefinitions="Auto,*,Auto"
+ColumnDefinitions="*,8*,*">
+
+        <!-- כותרת -->
+        <HorizontalStackLayout
+    Grid.Column="1"
+    HorizontalOptions="Center"
+    VerticalOptions="Start">
+            <Label
+        TextColor="White"
+        Text="Create Account"
+        FontSize="24" />
+        </HorizontalStackLayout>
+
+        <!-- טופס הרשמה -->
+        <VerticalStackLayout
+    Grid.Row="1"
+    Grid.Column="1"
+            
+    Margin="0,0,0,0">
+
+            <!-- שדה שם פרטי -->
+            <Border Margin="0,0,0,10" Padding="10" Stroke="#ccc" StrokeShape="RoundRectangle 8"  StrokeThickness="1">
+                <Entry FontSize="18" Placeholder="First Name" TextColor="Wheat" Text="{Binding FirstName}" />
+            </Border>
+
+            <!-- שדה שם משפחה -->
+            <Border Margin="0,0,0,10" Padding="10" Stroke="#ccc" StrokeShape="RoundRectangle 8" StrokeThickness="1">
+                <Entry FontSize="18" Placeholder="Last Name" TextColor="Wheat" Text="{Binding LastName}" />
+            </Border>
+
+            <!-- שדה דוא"ל -->
+            <Border Margin="0,0,0,10" Padding="10" Stroke="#ccc" StrokeShape="RoundRectangle 8" StrokeThickness="1">
+                <Entry Keyboard="Email" FontSize="18" Placeholder="Email" TextColor="Wheat" Text="{Binding UserEmail}" />
+            </Border>
+
+            <!--שדה סיסמה-->
+            <Border Margin="0,0,0,10" Stroke="#ccc" StrokeShape="RoundRectangle 8" StrokeThickness="1">
+                <Grid Padding="10" ColumnDefinitions="*,Auto" VerticalOptions="Center">
+                    <Entry x:Name="PasswordEntry" IsPassword="{Binding EntryAsPassword}" BackgroundColor="Transparent"
+                   FontSize="18" Placeholder="Password" TextColor="Wheat" VerticalOptions="Center" Text="{Binding UserPassword}" />
+                    <Button Margin="5,0,0,0" Padding="0" BackgroundColor="Transparent" FontSize="24"
+                    HorizontalOptions="End" TextColor="White" VerticalOptions="Center"
+                    FontFamily="MyMaterialSymbols" Text="{Binding PasswordIconCode}" Command="{Binding ShowPasswordCommand}" />
+                </Grid>
+            </Border>
+
+            <!-- שדה מספר נייד -->
+            <Border Margin="0,0,0,10" Padding="10" Stroke="#ccc" StrokeShape="RoundRectangle 8" StrokeThickness="1">
+                <Entry Keyboard="Telephone" FontSize="18" Placeholder="Mobile" TextColor="Wheat" Text="{Binding Mobile}" />
+            </Border>
+
+            <!-- כפתור הרשמה -->
+            <Button CornerRadius="8" FontSize="20" HeightRequest="70" Text="Sign Up" TextColor="White" Command="{Binding SignUpCommand}" />
+
+            <!-- יש לך כבר חשבון? -->
+            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Label Margin="14,0,0,0" 
+                       VerticalTextAlignment="Center" 
+                       TextColor="White"
+                       Text="Already have an account?" 
+                       FontSize="16" />
+                <Button BackgroundColor="Transparent" 
+                        FontSize="16" 
+                        TextColor="BlueViolet" 
+                        Text="Sign In"
+                        Command="{Binding GoToSignInCommand}"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

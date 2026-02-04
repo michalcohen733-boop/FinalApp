@@ -12,13 +12,40 @@
      Title="Home Page"
      ContentTemplate="{DataTemplate local:MainPage}"
      Route="MainPage" />
-    <!--<ShellContent
+    <ShellContent
      Title="Sign Up"
      ContentTemplate="{DataTemplate local:SignUpPage}"
-     Route="SignUpPage" />-->
+     Route="SignUpPage" />
     <ShellContent
      Title="Sign In"
      ContentTemplate="{DataTemplate local:SignInPage}"
-     Route="SignInPage" />  
+     Route="SignInPage" />
+    <Shell.TitleView>
+        <HorizontalStackLayout>
+            <Button
+                Margin="5"
+                BackgroundColor="Wheat"
+                Command="{Binding LogoutCommand}"
+                FontSize="24"
+                FontFamily="MyMaterialSymbols"
+                TextColor="Black"
+                Text="logout"
+                HorizontalOptions="Start" />
+
+            <!--<Button
+                Margin="0,5,5,5"
+                BackgroundColor="Wheat"
+                Command="{Binding AdminLoginCommand}"
+                FontSize="24"
+                FontFamily="MaterialIcons"
+                TextColor="Black"
+                Text="&#xf02e;"
+                HorizontalOptions="Start"
+                IsVisible="True" />-->
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+
+    
 
 </Shell>
+

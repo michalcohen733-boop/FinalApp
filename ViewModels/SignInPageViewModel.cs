@@ -1,10 +1,14 @@
-﻿using FinalApp.Service;
+﻿using FinalApp.Models;
+using FinalApp.Service;
+using FinalApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Newtonsoft.Json;
+using FinalApp.Service;
 
 namespace FinalApp.ViewModels
 {
@@ -18,7 +22,8 @@ namespace FinalApp.ViewModels
         private string _loginMessage;
         private bool _signInMessageVisible;
         private Color _signInColor;
-
+        private bool _isRememberMeChecked;
+        public INavigation Navigation { get; set; }
         public ICommand ShowPasswordCommand { get; }
         public ICommand SignInCommand { get; }
         public ICommand GoToSignUpCommand { get; }
@@ -33,11 +38,20 @@ namespace FinalApp.ViewModels
 
             ShowPasswordCommand = new Command(TogglePasswordButton);
             SignInCommand = new Command(SignInButton, CanSignIn);
-            GoToSignUpCommand = new Command(async () => await GoToSignUpPage());
+            GoToSignUpCommand = new Command(async () => await Navigation!.PushAsync(new SignUpPage()));
         }
-        private async Task GoToSignUpPage()
+        public bool RememberMeChecked
         {
-            await Shell.Current.GoToAsync("SignUpPage");
+            get { return _isRememberMeChecked; }
+            set
+            {
+                if (_isRememberMeChecked != value)
+                {
+                    _isRememberMeChecked = value;
+                    OnPropertyChanged();
+                }
+
+            }
         }
         public Color SignInColor
         {
@@ -150,9 +164,11 @@ namespace FinalApp.ViewModels
             SignInMessageVisible = true;
             if (_db.isExist(UserName, UserPassword))
             {
-                //loginMessage = "התחברות";
-                //SignInColor = Colors.Green;
-                //Navigate to MainPage
+            //    if (RememberMeChecked)
+            //    {
+            //        // save user to secure storage
+            //        SecureStorage.Default.SetAsync("current_user_object", UserName);
+            //    }
                 (App.Current as App)!.CurrentUser = _db.GetUserByEmail(UserName);
                 Application.Current!.Windows[0].Page = new AppShell();
             }
@@ -167,5 +183,24 @@ namespace FinalApp.ViewModels
         {
             return !(string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(UserPassword));
         }
+
+        //internal async void OnAppearing()
+        //{
+        //    // chack if user exist in storage
+        //    string? token = await SecureStorage.Default.GetAsync("current_user_object");
+        //    if (!string.IsNullOrEmpty(token))
+        //    {
+        //        AppUser user =  _db.GetUserByEmail(token);
+        //        if (user != null)
+        //        {
+        //            // set current user 
+        //            (App.Current as App)!.CurrentUser = user;
+        //            //navigte to main page of shell
+        //            var mainPage = IPlatformApplication.Current!.Services.GetService<AppShell>();
+        //            Application.Current!.Windows[0].Page = mainPage;
+        //        }
+        //    }
+
+        //}
     }
 }
