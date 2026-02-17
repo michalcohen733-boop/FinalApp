@@ -9,13 +9,16 @@ namespace FinalApp.Service
 {
     public class DBMokup
     {
-        private List<AppUser> _users = new List<AppUser>();
+        private static List<AppUser> _users = new List<AppUser>();
         public List<AppUser> GetUsers() { return _users; }
         public DBMokup()
         {
-            _users.Add(new AppUser { UserEmail = "a", UserPassword = "a" });
-            _users.Add(new AppUser { UserEmail = "user1@mail.com", UserPassword = "pass1" });
-            _users.Add(new AppUser { UserEmail = "user2@mail.com", UserPassword = "pass2" });
+            if (_users.Count == 0)
+            {
+                _users.Add(new AppUser { FirstName = "Michal", LastName = "Cohen", UserEmail = "a", UserPassword = "a", IsAdmin = true,  UMobile = "0585550954" });
+                _users.Add(new AppUser { FirstName = "Yali", LastName = "Matok", UserEmail = "b", UserPassword = "b", UMobile="0503131965" });
+                _users.Add(new AppUser { FirstName = "Alon", LastName = "Zisman", UserEmail = "user2@mail.com", UserPassword = "pass2" });
+            }
         }
         public bool isExist(string uEmail, string uPass)
         {

@@ -1,5 +1,6 @@
 ﻿using FinalApp.Views;
 using FinalApp.ViewModels;
+
 namespace FinalApp
 {
     public partial class AppShell : Shell
@@ -7,11 +8,13 @@ namespace FinalApp
         public AppShell()
         {
             InitializeComponent();
-            BindingContext = new AppShellViewModel(new SignInPage(new SignInPageViewModel()));
-            //Routing.RegisterRoute("SignUpPage", typeof(SignUpPage));
-            //Routing.RegisterRoute("SignUpPage", typeof(SignInPage));
 
 
+            BindingContext = new AppShellViewModel();
+
+            Routing.RegisterRoute(nameof(UserDetailsPage), typeof(UserDetailsPage));
+            Routing.RegisterRoute(nameof(AdminPage), typeof(AdminPage));
+            Routing.RegisterRoute(nameof(UsersListPage), typeof(UsersListPage));
         }
     }
 }

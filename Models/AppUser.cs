@@ -12,6 +12,8 @@ namespace FinalApp.Models
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? UserEmail { get; set; }
+        public string? UMobile { get; set; }
+
         public string? UserPassword { get; set; }
         public DateTime UBDate { get; set; }
         public DateTime RegDate { get; set; }

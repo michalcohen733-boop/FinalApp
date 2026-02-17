@@ -1,28 +1,60 @@
-﻿using FinalApp.Service;
+﻿using FinalApp.Models;
 using FinalApp.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace FinalApp.ViewModels
 {
-    public class AppShellViewModel
+    public class AppShellViewModel : ViewModelBase
     {
-        private Page _signInPage;
+        // מאפיין שמקושר ישירות למשתמש שנמצא ב-App.xaml.cs
+        public AppUser CurrentUser => (App.Current as App)?.CurrentUser;
+
+        // בדיקה האם המשתמש הוא אדמין
+        public bool IsAdmin => CurrentUser?.IsAdmin ?? false;
 
         public ICommand LogoutCommand { get; }
-        public AppShellViewModel(SignInPage signInPage)
-        {
-            LogoutCommand = new Command(async () => await Logout());
+        public ICommand AdminLoginCommand { get; }
+        public ICommand HomeCommand { get; }
+        public ICommand AccountPageCommand { get; }
 
+        public AppShellViewModel()
+        {
+            AdminLoginCommand = new Command(async () => await OpenAdminLogin());
+            //AccountPageCommand = new Command(async () => await OpenAccountPage());
+            LogoutCommand = new Command(async () => await Logout());
+            HomeCommand = new Command(async () => await GoToHomePage());
+            AccountPageCommand = new Command(async () => await GoToAccountPage());
         }
+        private async Task OpenAdminLogin()
+        {
+            await Shell.Current.GoToAsync(nameof(AdminPage));
+        }
+
+        private async Task GoToAccountPage()
+        {
+            // משיכת המשתמש המחובר מתוך מחלקת ה-App
+            var user = (App.Current as App)?.CurrentUser;
+
+            if (user != null)
+            {
+                var parameters = new Dictionary<string, object> { { "selectedUser", user } };
+                await Shell.Current.GoToAsync(nameof(UserDetailsPage), parameters);
+            }
+        }
+        private async Task GoToHomePage()
+        {
+            await Shell.Current.GoToAsync($"///{nameof(MainPage)}");
+        }
+
         private async Task Logout()
         {
-            (App.Current as App)!.CurrentUser = null;
-            Application.Current!.Windows[0].Page = new NavigationPage(new SignInPage(new ViewModels.SignInPageViewModel()));
+            var app = (App.Current as App);
+            if (app != null)
+            {
+                app.CurrentUser = null;
+                // חזרה לדף ה-Login ואיפוס הניווט
+                Application.Current.MainPage = new NavigationPage(new SignInPage(new SignInPageViewModel()));
+            }
         }
     }
 }

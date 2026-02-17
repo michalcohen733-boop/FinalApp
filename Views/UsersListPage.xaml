@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:FinalApp.Models"
+             xmlns:viewmodels="clr-namespace:FinalApp.ViewModels"
+             x:DataType="viewmodels:UsersListViewModel"
+             x:Class="FinalApp.Views.UsersListPage"
+             Title="Users List">
+
+    <Grid RowDefinitions="0.13*, 0.13*, 0.9*">
+
+        <Grid ColumnDefinitions="7*,3*">
+            <Label
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Margin="80,0,0,0"
+                TextColor="CadetBlue"
+                FontAttributes="Bold"
+                Text="Users List" />
+
+            <Button
+                Grid.Column="1"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Background="Green"
+                TextColor="White"
+                Text="Add"
+                FontSize="20" />
+        </Grid>
+
+        <Grid Grid.Row="1" ColumnDefinitions="7*,3*">
+            <SearchBar
+                Text="{Binding SearchText}"
+                SearchCommand="{Binding SearchCommand}"
+                Placeholder="find user" />
+
+            <Button
+                Grid.Column="1"
+                Margin="0,0,0,15"
+                Background="Transparent"
+                ImageSource="filteroff.png"
+                Command="{Binding ClearFilterCommand}" />
+        </Grid>
+
+        <RefreshView Grid.Row="2"
+                     Command="{Binding RefreshCommand}"
+                     IsRefreshing="{Binding IsRefreshing}">
+
+            <CollectionView
+    x:Name="UsersCollection"
+    ItemsSource="{Binding AllUsers}"
+    SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:AppUser">
+                        <Border Margin="15,7" Padding="15" StrokeShape="RoundRectangle 10">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer 
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:UsersListViewModel}}, Path=OpenUpdatePageCommand}"
+                        CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+
+                            <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, Auto" RowSpacing="5">
+                                <HorizontalStackLayout Grid.Row="0" Grid.Column="0">
+                                    <Label FontAttributes="Bold" FontSize="16" Text="{Binding FirstName}" VerticalOptions="Center" />
+                                    <Label Margin="5,0,0,0" FontAttributes="Bold" FontSize="16" Text="{Binding LastName}" VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+
+                                <Label Grid.Row="1" Grid.Column="0" FontSize="13" Text="{Binding UserEmail}" TextColor="Gray" />
+
+                                <Border Grid.RowSpan="2" Grid.Column="1" Padding="10,5" StrokeShape="RoundRectangle 15" VerticalOptions="Center">
+                                    <Label FontSize="12" Text="{Binding RegDate, StringFormat='{0:dd/MM/yyyy}'}" />
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

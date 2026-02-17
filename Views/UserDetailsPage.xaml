@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:FinalApp.ViewModels"
+             x:Class="FinalApp.Views.UserDetailsPage"
+             x:DataType="viewmodels:UserDetailsPageViewModel"
+             Title="User Details"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Offset="0.0" Color="#C6426E" />
+            <GradientStop Offset="1.0" Color="#642B73" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Grid RowDefinitions="120, Auto, *"
+          ColumnDefinitions="20, *, 20"
+          Padding="0,20">
+
+        <Grid Grid.Row="0" Grid.Column="1" VerticalOptions="Center">
+
+            <Label Text="Account Details"
+                   TextColor="Wheat"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+
+            <ImageButton HorizontalOptions="End"
+                         VerticalOptions="Center"
+                         BackgroundColor="Transparent"
+                         Padding="10"
+                         IsVisible="{Binding CanDeleteUser}"
+                         Command="{Binding DeleteUserCommand}">
+                <ImageButton.Source>
+                    <FontImageSource FontFamily="MyMaterialSymbols"
+                                     Glyph="&#xe872;"
+                                     Size="32"
+                                     Color="Wheat" />
+                </ImageButton.Source>
+            </ImageButton>
+        </Grid>
+
+        <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="15">
+
+            <Border Padding="10" Stroke="#ccc" StrokeShape="RoundRectangle 8">
+                <Entry Text="{Binding FirstName}" 
+                       Placeholder="First Name" 
+                       TextColor="White" 
+                       PlaceholderColor="LightGray"/>
+            </Border>
+
+            <Border Padding="10" Stroke="#ccc" StrokeShape="RoundRectangle 8">
+                <Entry Text="{Binding LastName}" 
+                       Placeholder="Last Name" 
+                       TextColor="White" 
+                       PlaceholderColor="LightGray"/>
+            </Border>
+
+            <Border Padding="10" Stroke="#ccc" StrokeShape="RoundRectangle 8">
+                <Entry Text="{Binding Email}" 
+                       Placeholder="Email" 
+                       Keyboard="Email"
+                       TextColor="White" 
+                       PlaceholderColor="LightGray"/>
+            </Border>
+
+            <Border Padding="10" Stroke="#ccc" StrokeShape="RoundRectangle 8">
+                <Entry Text="{Binding Mobile}" 
+                       Placeholder="Mobile" 
+                       Keyboard="Telephone"
+                       TextColor="White" 
+                       PlaceholderColor="LightGray"/>
+            </Border>
+
+            <Button Text="SAVE CHANGES" 
+                    Command="{Binding UpdateUserCommand}"
+                    BackgroundColor="Wheat"
+                    TextColor="#642B73"
+                    HeightRequest="50"
+                    CornerRadius="25"
+                    FontAttributes="Bold"
+                    Margin="0,20,0,0">
+                <Button.Shadow>
+                    <Shadow Brush="Black" Offset="0,5" Opacity="0.3" />
+                </Button.Shadow>
+            </Button>
+
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -3,49 +3,60 @@
     x:Class="FinalApp.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    
     xmlns:local="clr-namespace:FinalApp.Views"
     BackgroundColor="pink"
-
     Title="FinalApp">
 
     <ShellContent
-     Title="Home Page"
-     ContentTemplate="{DataTemplate local:MainPage}"
-     Route="MainPage" />
+        Title="Home Page"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
     <ShellContent
-     Title="Sign Up"
-     ContentTemplate="{DataTemplate local:SignUpPage}"
-     Route="SignUpPage" />
+        Title="Sign Up"
+        ContentTemplate="{DataTemplate local:SignUpPage}"
+        Route="SignUpPage" />
+
     <ShellContent
-     Title="Sign In"
-     ContentTemplate="{DataTemplate local:SignInPage}"
-     Route="SignInPage" />
+        Title="Sign In"
+        ContentTemplate="{DataTemplate local:SignInPage}"
+        Route="SignInPage" />
+
     <Shell.TitleView>
-        <HorizontalStackLayout>
+        <HorizontalStackLayout Spacing="5" Padding="5">
             <Button
-                Margin="5"
                 BackgroundColor="Wheat"
                 Command="{Binding LogoutCommand}"
                 FontSize="24"
                 FontFamily="MyMaterialSymbols"
                 TextColor="Black"
-                Text="logout"
-                HorizontalOptions="Start" />
+                Text="logout" />
 
-            <!--<Button
-                Margin="0,5,5,5"
+            <Button
                 BackgroundColor="Wheat"
                 Command="{Binding AdminLoginCommand}"
                 FontSize="24"
-                FontFamily="MaterialIcons"
+                FontFamily="MyMaterialSymbols"
                 TextColor="Black"
                 Text="&#xf02e;"
-                HorizontalOptions="Start"
-                IsVisible="True" />-->
+                IsVisible="{Binding IsAdmin}" />
+
+            <Button
+                BackgroundColor="Wheat"
+                Command="{Binding AccountPageCommand}" 
+                FontSize="24"
+                FontFamily="MyMaterialSymbols"
+                TextColor="Black"
+                Text="&#xe853;" />  
+
+            <Button
+                BackgroundColor="Wheat"
+                Command="{Binding HomeCommand}"
+                FontSize="24"
+                FontFamily="MyMaterialSymbols"
+                TextColor="Black"
+                Text="&#xe88a;" />
         </HorizontalStackLayout>
     </Shell.TitleView>
-
-    
-
 </Shell>
-

@@ -5,7 +5,7 @@
             xmlns:views="clr-namespace:FinalApp.ViewModels"
             x:DataType="views:SignInPageViewModel"
             NavigationPage.HasNavigationBar="False"
-            FlowDirection="RightToLeft">
+            FlowDirection="LeftToRight">
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
             <GradientStop Offset="0.0" Color="LightCyan"/>
@@ -21,7 +21,7 @@
 
         <!-- כותרת -->
         <Label
-        Text="כניסה"
+        Text="SignIn"
         FontAttributes="Bold"
         FontSize="25"
         VerticalOptions="Center"
@@ -59,7 +59,7 @@
                 BackgroundColor="Transparent"
                 FontSize="18"
                 IsPassword="{Binding EntryAsPassword}"
-                Placeholder="סיסמה"
+                Placeholder="password"
                 TextColor="Wheat"
                 VerticalOptions="Center"/>
 
@@ -79,20 +79,20 @@
 
         <!-- כפתור כניסה -->
         <Button
-        Text="התחברות"
+        Text="Sign In"
         CornerRadius="8"
         FontSize="18"
         HeightRequest="50"
         TextColor="White"
         Command="{Binding SignInCommand}"
        />
-        <!-- remember me-->
+        <!-- remember me--><!--
         <HorizontalStackLayout 
          Spacing="10"
          VerticalOptions="Center">
             <CheckBox IsChecked="{Binding RememberMeChecked}" Color="White"/>
             <Label Text="Remember me" TextColor="wheat" FontSize="16"/>
-        </HorizontalStackLayout>
+        </HorizontalStackLayout>-->
         <!-- שגיאה -->
         <Label
         Text="{Binding loginMessage}"

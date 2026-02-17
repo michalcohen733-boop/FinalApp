@@ -1,5 +1,9 @@
-﻿using CommunityToolkit.Maui.Alerts;
+﻿//using Android.App.Job;
+//using Android.Health.Connect.DataTypes.Units;
+using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using FinalApp.Models;
+using FinalApp.Service;
 using FinalApp.Views;
 using System;
 using System.Collections.Generic;
@@ -12,6 +16,8 @@ namespace FinalApp.ViewModels
 {
     public class SignUpPageViewModel : ViewModelBase
     {
+        DBMokup _db;
+
         private string? _firstName;
         private string? _lastName;
         private string? _email;
@@ -22,8 +28,12 @@ namespace FinalApp.ViewModels
         public ICommand? ShowPasswordCommand { get; }
         public ICommand? SignUpCommand { get; }
         public ICommand GoToSignInCommand { get; }
+        public INavigation Navigation { get; set; }
+
         public SignUpPageViewModel()
         {
+            _db = new DBMokup();
+
             EntryAsPassword = true;
             PasswordIconCode = "\ue8f4";
             ShowPasswordCommand = new Command(TogglePasswordButton);
@@ -142,7 +152,30 @@ namespace FinalApp.ViewModels
             //Register user into DB
             //Save User to Current User
             //Go to Main Page
-            await Toast.Make($"SignUp new user", ToastDuration.Short, 14).Show();
+            string first = (FirstName ?? "").Trim();
+            string last = (LastName ?? "").Trim();
+            string email = (UserEmail ?? "").Trim();
+            string pass = (UserPassword ?? "").Trim();
+            string mobile = (Mobile ?? "").Trim();
+            AppUser newUser = new AppUser
+            {
+                FirstName = first,
+                LastName = last,
+                UserEmail = email,
+                UserPassword = pass,
+                UMobile = mobile,
+                IsAdmin = false,
+                RegDate = DateTime.Now
+            };
+
+            _db.AddUser(newUser);
+            if (App.Current is App currentApp)
+            {
+                currentApp.CurrentUser = newUser;
+            }
+            Application.Current!.Windows[0].Page = new AppShell();
+
+           // await Toast.Make($"SignUp new user", ToastDuration.Short, 14).Show();
         }
         private bool Validate()
         {
