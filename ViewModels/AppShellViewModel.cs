@@ -6,10 +6,8 @@ namespace FinalApp.ViewModels
 {
     public class AppShellViewModel : ViewModelBase
     {
-        // מאפיין שמקושר ישירות למשתמש שנמצא ב-App.xaml.cs
         public AppUser CurrentUser => (App.Current as App)?.CurrentUser;
 
-        // בדיקה האם המשתמש הוא אדמין
         public bool IsAdmin => CurrentUser?.IsAdmin ?? false;
 
         public ICommand LogoutCommand { get; }
@@ -32,7 +30,6 @@ namespace FinalApp.ViewModels
 
         private async Task GoToAccountPage()
         {
-            // משיכת המשתמש המחובר מתוך מחלקת ה-App
             var user = (App.Current as App)?.CurrentUser;
 
             if (user != null)
@@ -52,7 +49,6 @@ namespace FinalApp.ViewModels
             if (app != null)
             {
                 app.CurrentUser = null;
-                // חזרה לדף ה-Login ואיפוס הניווט
                 Application.Current.MainPage = new NavigationPage(new SignInPage(new SignInPageViewModel()));
             }
         }

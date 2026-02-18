@@ -93,25 +93,19 @@ namespace FinalApp.ViewModels
 
             if (confirm)
             {
-                // 1. מחיקת המשתמש מהדאטה-בייס
                 new DBMokup().RemoveUser(ReceivedUser);
 
-                // 2. בדיקה: האם המשתמש מחק את עצמו?
                 var app = (App.Current as App);
                 var loggedInUser = app?.CurrentUser;
 
                 if (loggedInUser != null && ReceivedUser.UserEmail == loggedInUser.UserEmail)
                 {
-                    // אם הוא מחק את עצמו - איפוס וניווט לדף ההתחברות
                     app.CurrentUser = null;
 
-                    // שימוש בנתיב מוחלט (///) כדי לנקות את המחסנית
                     await Shell.Current.GoToAsync("///SignInPage");
                 }
                 else
                 {
-                    // אם זה אדמין שמחק מישהו אחר - חוזרים אחורה לרשימה
-                    // ".." אומר "חזור דף אחד אחורה" - זה הכי בטוח אם הגעת מרשימה
                     await Shell.Current.GoToAsync("..");
                 }
             }
